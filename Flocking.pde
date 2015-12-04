@@ -1,13 +1,13 @@
-int NUM_BOIDS = 500;
+int NUM_BOIDS = 800;
 float NEIGHBORHOOD_RADIUS = 200.0;
 float COHESION_WEIGHT = 0.15;
 float SEPARATION_WEIGHT = 0.25;
-float ALIGNMENT_WEIGHT = 0.2;
+float ALIGNMENT_WEIGHT = 0.25;
 
 Boid[] boids = new Boid[NUM_BOIDS];
 
 void setup() {
-  size(1000, 1000, P3D);
+  fullScreen(P3D);
   initializeBoids();
 }
 
@@ -113,7 +113,8 @@ PVector boundToScreen(Boid b) {
   if (b.pos.y < 0) { v.y = speed; }
   else if (b.pos.y > height) { v.y = -speed; }
   
-  //v.normalize();
+  if (b.pos.z < 0) { v.z = speed; }
+  else if (b.pos.z > height/2) { v.z = -speed; }
   
   return v;
 }
