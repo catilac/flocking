@@ -4,7 +4,7 @@ float COHESION_WEIGHT = 0.15;
 float SEPARATION_WEIGHT = 0.25;
 float ALIGNMENT_WEIGHT = 0.25;
 
-Boid[] boids = new Boid[NUM_BOIDS];
+Boid[] boids;
 
 void setup() {
   fullScreen(P3D);
@@ -18,6 +18,7 @@ void draw() {
 }
 
 void initializeBoids() {
+  boids = new Boid[NUM_BOIDS];
   for (int i = 0; i < NUM_BOIDS; i++) {
     boids[i] = new Boid();
   }
@@ -30,7 +31,7 @@ void updateBoids() {
     
     PVector v1 = calculateCohesion(currBoid, neighbors);
     PVector v2 = calculateSeparation(currBoid, neighbors);
-    PVector v3 = calculateAlignment(currBoid, neighbors);
+    PVector v3 = calculateAlignment(neighbors);
     PVector v4 = boundToScreen(currBoid);
     
     // Apply  Weights
@@ -90,7 +91,7 @@ PVector calculateSeparation(Boid b, ArrayList<Boid> neighbors) {
   return v;
 }
 
-PVector calculateAlignment(Boid b, ArrayList<Boid> neighbors) {
+PVector calculateAlignment(ArrayList<Boid> neighbors) {
   PVector pv = new PVector(0, 0); // Perceived Velocity
   if (neighbors.size() == 0) { return pv; }
   for (int i = 0; i < neighbors.size(); i++) {

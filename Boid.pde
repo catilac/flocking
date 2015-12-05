@@ -1,6 +1,7 @@
 class Boid {
   PVector pos;
   PVector vel;
+  
   Boid() {
     float dx = random(0, width);
     float dy = random(0, height);
@@ -14,16 +15,12 @@ class Boid {
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
     rotate(vel.heading());
-    box(5.0);
+    drawBoid();
     popMatrix();
   }
   
   private void drawBoid() {
-    beginShape(TRIANGLES);
-    vertex(5, 0);
-    vertex(0, 10);
-    vertex(10, 10);
-    endShape();
+    box(5.0);
   }
   
 }
